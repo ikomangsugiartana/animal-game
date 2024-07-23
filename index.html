@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nama dan Suara Hewan</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+
+  .animal-images {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .animal-images img {
+    height: 150px;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .animal-images img:hover {
+    transform: scale(1.1);
+  }
+
+  #result {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="animal-images">
+  <div>
+    <img src="gajah.jpg" alt="Gajah" data-name="Gajah" data-sound="sound/gajah.mp3">
+    <audio id="sound-gajah" src="sound/gajah.mp3"></audio>
+  </div>
+  <div>
+    <img src="burung.jpg" alt="Burung" data-name="Burung" data-sound="sound/burung.mp3">
+    <audio id="sound-burung" src="sound/burung.mp3"></audio>
+  </div>
+  <div>
+    <img src="kucing.jpg" alt="Kucing" data-name="Kucing" data-sound="https://www.animal-sounds.org/mammals/cat.wav">
+    <audio id="sound-kucing" src="https://www.animal-sounds.org/mammals/cat.wav"></audio>
+  </div>
+  <div>
+    <img src="bebek.jpg" alt="Bebek" data-name="Bebek" data-sound="https://www.animal-sounds.org/mammals/dog.wav">
+    <audio id="sound-anjing" src="https://www.animal-sounds.org/mammals/dog.wav"></audio>
+  </div>
+  <div>
+    <img src="kelinci.jpg" alt="Kelinci" data-name="Kelinci" data-sound="https://www.animal-sounds.org/mammals/lion.wav">
+    <audio id="sound-singa" src="https://www.animal-sounds.org/mammals/lion.wav"></audio>
+  </div>
+</div>
+
+<div id="result"></div>
+
+<script>
+  $(document).ready(function() {
+    $('.animal-images img').click(function() {
+      var animalName = $(this).data('name');
+      var audioSrc = $(this).data('sound');
+      var resultDiv = $('#result');
+      
+      resultDiv.html('<p>Nama hewan: ' + animalName + '</p><p>Suara hewan:</p>');
+      
+      // Hentikan audio sebelumnya (jika ada) dan putar audio yang baru
+      $('audio').each(function() {
+        this.pause();
+        this.currentTime = 0;
+      });
+
+      var audioElement = $('#sound-' + animalName.toLowerCase());
+      if (audioElement.length > 0) {
+        audioElement.attr('src', audioSrc);
+        audioElement[0].play();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
